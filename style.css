@@ -105,6 +105,7 @@ button:active {
 
 input[type='color']{
     transition: transform 0.1s ease-in-out;
+    background-color: transparent;
 }
 
 input[type='color']:hover{
