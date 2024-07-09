@@ -12,59 +12,62 @@ const inputValue = document.getElementById("inputValue");
 const btnClear = document.getElementById("clear");
 const colorPicker = document.getElementById("colorPicker");
 const btnEraser = document.getElementById("eraserMode");
+const btnColor = document.getElementById("colorMode");
 
 colorPicker.oninput = (e) => {
-  setCurrentColor(e.target.value);
+	setCurrentColor(e.target.value);
 };
 input.onmousemove = (e) => {
-  updateInputValue(e.target.value);
+	updateInputValue(e.target.value);
 };
 input.onchange = (e) => changeSize(e.target.value);
 btnClear.onclick = () => reloadGrid();
+btnEraser.onclick = () => setCurrentColor("#D9DDDC");
+btnColor.onclick = () => setCurrentColor(colorPicker.value);
 
 function createGrid(num) {
-  grid.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
-  grid.style.gridTemplateRows = `repeat(${num}, 1fr)`;
-  for (let i = 0; i < num * num; i++) {
-    const gridCont = document.createElement("div");
-    gridCont.classList.add("grid-element");
-    gridCont.addEventListener("mousedown", draw);
-    gridCont.addEventListener("mouseover", draw);
-    grid.appendChild(gridCont);
-  }
+	grid.style.gridTemplateColumns = `repeat(${num}, 1fr)`;
+	grid.style.gridTemplateRows = `repeat(${num}, 1fr)`;
+	for (let i = 0; i < num * num; i++) {
+		const gridCont = document.createElement("div");
+		gridCont.classList.add("grid-element");
+		gridCont.addEventListener("mousedown", draw);
+		gridCont.addEventListener("mouseover", draw);
+		grid.appendChild(gridCont);
+	}
 }
 
 function draw(e) {
-  e.target.style.backgroundColor = currentColor;
+	e.target.style.backgroundColor = currentColor;
 }
 
 function setCurrentColor(newColor) {
-  currentColor = newColor;
+	currentColor = newColor;
 }
 
 function setCurrentSize(newSize) {
-  currentSize = newSize;
+	currentSize = newSize;
 }
 
 function changeSize(input) {
-  setCurrentSize(input);
-  updateInputValue(input);
-  reloadGrid();
+	setCurrentSize(input);
+	updateInputValue(input);
+	reloadGrid();
 }
 
 function reloadGrid() {
-  clear();
-  createGrid(currentSize);
+	clear();
+	createGrid(currentSize);
 }
 
 function updateInputValue(newValue) {
-  inputValue.innerHTML = `${newValue} x ${newValue}`;
+	inputValue.innerHTML = `${newValue} x ${newValue}`;
 }
 
 function clear() {
-  grid.innerHTML = "";
+	grid.innerHTML = "";
 }
 
 window.onload = () => {
-  createGrid(DEFAULT_SIZE);
+	createGrid(DEFAULT_SIZE);
 };
